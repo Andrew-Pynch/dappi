@@ -10,13 +10,13 @@ README = (HERE / "README.md").read_text()
 # This call to setup() does all the work
 setup(
     name="dappi",
-    version="1.0.7",
+    version="1.0.8",
     description="Parse messages from discord server exports into csv files",
     long_description=README,
     long_description_content_type="text/markdown",
-    url="https://github.com/Andrew-Pynch/discord-message-scraper/tree/main/dappy",
+    url="https://github.com/Andrew-Pynch/dappi",
     author="Andrew Pynch",
-    author_email="info@realpython.com",
+    author_email="andrewpynchbusiness@gmail.com",
     license="MIT",
     classifiers=[
         "License :: OSI Approved :: MIT License",
