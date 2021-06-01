@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
-
+from .message import *
+from .dates import *
 
 class User(object):
     def __init__(self, id, title):
