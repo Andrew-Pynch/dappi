@@ -3,29 +3,48 @@ import csv
 from warnings import showwarning
 from bs4 import BeautifulSoup
 from user import *
+from message import *
 
 
-class Dappy(object):
+class Parser(object):
     def __init__(self, _html):
-        self.users = collections.defaultdict(list)
+        self.user_dict = collections.defaultdict(list)
+        self.users = []
+        self.messages = []
         self.html = open(_html)
         self.soup = BeautifulSoup(self.html, "html.parser")
+        self.populate_users()
+        self.populate_messages()
 
     def __call__(self):
         pass
 
-    def get_all_users(self):
-        message_headers = self.soup.find_all("span", {"class": "chatlog__author-name"})
-        for header in message_headers:
-            user = get_user_from_message_header(header)
-            self.users[user.id].append(user.title)
-        self.users = get_user_list_from_dict(self.users)
-        self.show_all_users()
+    def populate_users(self):
+        self.user_dict, self.users = get_all_users(
+            self.soup, self.user_dict, self.users
+        )
 
-    def show_all_users(self):
-        print(user for user in self.users)
+    def populate_messages(self):
+        self.messages = get_all_messages(self.soup)
+
+    def parse_all_messages_into_single_file(self):
+        with open("data/messages.csv", "w", newline="") as f:
+            field_names = ["id", "title", "message", "timestamp"]
+
+            writer = csv.DictWriter(f, fieldnames=field_names)
+            writer.writeheader()
+
+            for message in self.messages:
+                writer.writerow(
+                    {
+                        "id": message.user.id,
+                        "title": message.user.title,
+                        "message": message.message,
+                        "timestamp": message.timestamp,
+                    }
+                )
 
 
 if __name__ == "__main__":
-    dappy = Dappy("frostbite.html")
-    dappy.get_all_users()
+    dappy = Parser("frostbite.html")
+    dappy.parse_all_messages_into_single_file()

@@ -13,9 +13,31 @@ class User(object):
         return f"Id: {self.id} | Title: {self.title}"
 
 
+def get_all_users(soup, user_dict, users):
+    message_headers = soup.find_all("span", {"class": "chatlog__author-name"})
+    for header in message_headers:
+        user = get_user_from_message_header(header)
+        user_dict[user.id].append(user.title)
+    users = get_user_list_from_dict(user_dict)
+    return user_dict, users
+
+
+def show_all_users(users):
+    for user in users:
+        print(user)
+
+
 def get_user_from_message_header(message_header):
     id = message_header["data-user-id"]
     title = message_header["title"]
+    return User(id, title)
+
+
+def get_user_from_message_div(message_div):
+    id = message_div.select("span", {"class": "chatlog__author-name"})[0][
+        "data-user-id"
+    ]
+    title = message_div.select("span", {"class": "chatlog__author-name"})[0]["title"]
     return User(id, title)
 
 
