@@ -46,6 +46,6 @@ class Parser(object):
                 )
 
 
-if __name__ == "__main__":
-    dappy = Parser("frostbite.html")
-    dappy.parse_all_messages_into_single_file()
+# if __name__ == "__main__":
+#     dappy = Parser("frostbite.html")
+#     dappy.parse_all_messages_into_single_file()
