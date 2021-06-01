@@ -2,8 +2,7 @@ import collections
 import csv
 from warnings import showwarning
 from bs4 import BeautifulSoup
-from user import *
-from message import *
+from . import all
 
 
 class Parser(object):

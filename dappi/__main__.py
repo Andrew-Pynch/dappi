@@ -1,6 +1,6 @@
 import argparse
 import optparse
-import parser
+from . import all
 
 def get_args():
     parser = optparse.OptionParser()

@@ -1,6 +1,5 @@
-from user import User, get_user_from_message_div
 from bs4 import BeautifulSoup
-from dates import *
+from . import all
 
 
 class Message(object):
