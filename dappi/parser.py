@@ -7,12 +7,13 @@ from message import *
 
 
 class Parser(object):
-    def __init__(self, html, output_dir):
+    def __init__(self, html, output_dir, show):
         self.user_dict = collections.defaultdict(list)
         self.users = []
         self.messages = []
         self.html = open(html)
         self.output_dir = output_dir
+        self.show = show
         self.soup = BeautifulSoup(self.html, "html.parser")
         self.populate_users()
         self.populate_messages()
@@ -36,6 +37,7 @@ class Parser(object):
             writer.writeheader()
 
             for message in self.messages:
+                print(message) if self.show else pass
                 writer.writerow(
                     {
                         "id": message.user.id,
