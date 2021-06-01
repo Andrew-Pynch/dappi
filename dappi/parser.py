@@ -37,7 +37,7 @@ class Parser(object):
             writer.writeheader()
 
             for message in self.messages:
-                print(message) if self.show else pass
+                self.show and print(message) # Print message if show is true 
                 writer.writerow(
                     {
                         "id": message.user.id,

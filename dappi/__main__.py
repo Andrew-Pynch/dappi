@@ -12,8 +12,8 @@ def get_args():
         action="store", dest="output",
         help="place to output messages", default="messages.csv")
     parser.add_option('-s', '--show',
-        action="store", dest="show"
-        help="show messages as they are being written" default=True)
+        action="store", dest="show",
+        help="show messages as they are being written", default=True)
 
     options, args = parser.parse_args()
     return options, args
