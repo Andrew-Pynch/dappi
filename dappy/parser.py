@@ -7,11 +7,12 @@ from message import *
 
 
 class Parser(object):
-    def __init__(self, _html):
+    def __init__(self, html, output_dir):
         self.user_dict = collections.defaultdict(list)
         self.users = []
         self.messages = []
-        self.html = open(_html)
+        self.html = open(html)
+        self.output_dir = output_dir
         self.soup = BeautifulSoup(self.html, "html.parser")
         self.populate_users()
         self.populate_messages()
@@ -28,7 +29,7 @@ class Parser(object):
         self.messages = get_all_messages(self.soup)
 
     def parse_all_messages_into_single_file(self):
-        with open("data/messages.csv", "w", newline="") as f:
+        with open(self.output_dir, "w", newline="") as f:
             field_names = ["id", "title", "message", "timestamp"]
 
             writer = csv.DictWriter(f, fieldnames=field_names)
